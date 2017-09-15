@@ -1,0 +1,31 @@
+.absContainer {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  z-index: 1 !important;
+}
+
+.vh100 {
+  height: 93vh !important;
+}
+
+.vw75 {
+  width: 75vw !important;
+}
+
+.spawn {
+  position: absolute;
+  left: 10vw;
+  top: 25vh;
+  background-color: darkgrey;
+  z-index: 1;
+}
+
+
+
+.textPlain {
+  text-decoration: none;
+  color: inherit;
+}
