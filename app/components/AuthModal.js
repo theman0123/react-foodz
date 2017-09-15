@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { display4 } from 'bootstrap-css-modules/css/type.css';
 import { textCenter } from 'bootstrap-css-modules/css/text.css';
@@ -8,7 +8,7 @@ import { m2 } from 'bootstrap-css-modules/css/margin.css';
 import { flexRow } from 'bootstrap-css-modules/css/flex.css';
 import { roundedBottom } from 'bootstrap-css-modules/css/borders.css';
 
-import { textPlain, spawn, modalClose, padL25cents } from '../../myStyles.css';
+import { textPlain, spawn, modalClose, padL25cents } from '../myStyles.css';
 
 import { Modal } from 'react-bootstrap';
 
@@ -19,7 +19,8 @@ const fbS = `${btn} ${btnPrimary} ${m2}`;
 const googleS = `${btn} ${btnWarning} ${m2}`;
 const twitterS = `${btn} ${btnInfo} ${m2}`;
 
-export default class Login extends React.Component {
+
+export default class AuthModal extends Component {
   constructor(props) {
     super(props);
     this.state = {showModal: false};
@@ -32,15 +33,10 @@ export default class Login extends React.Component {
   open() {
     this.setState({ showModal: true });
   }
-
+  
   render() {
     return (
-      <div>
-        <div className={login} onClick={this.open.bind(this)}>
-          login
-        </div>
-
-        <Modal
+      <Modal
           className={modalCS} show={this.state.showModal} onHide={this.close.bind(this)}
           >
 
@@ -57,7 +53,6 @@ export default class Login extends React.Component {
           </Modal.Body>
 
         </Modal>
-      </div>
-      );
-  };
+    )
+  }
 }

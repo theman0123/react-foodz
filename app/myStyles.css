@@ -19,11 +19,25 @@
   position: absolute;
   left: 10vw;
   top: 25vh;
-  background-color: darkgrey;
+  background-color: #F8C57C;
+  border: 2px solid #F1938F;
   z-index: 1;
 }
 
+.modalClose {
+  float: right;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
 
+.padL25cents {
+  padding-left: 25%;
+}
 
 .textPlain {
   text-decoration: none;
