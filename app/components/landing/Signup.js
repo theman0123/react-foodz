@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { display4 } from 'bootstrap-css-modules/css/type.css';
-import { textCenter } from 'bootstrap-css-modules/css/text.css';
-import { modalBody, modalHeader } from 'bootstrap-css-modules/css/modal.css';
+import {lead} from 'bootstrap-css-modules/css/type.css';
+import { modalHeader } from 'bootstrap-css-modules/css/modal.css';
 import { btn, btnPrimary, btnWarning, btnInfo } from 'bootstrap-css-modules/css/buttons.css';
 import { m2 } from 'bootstrap-css-modules/css/margin.css';
 import { flexRow } from 'bootstrap-css-modules/css/flex.css';
@@ -14,12 +13,12 @@ import { Modal } from 'react-bootstrap';
 
 const modalCS = `${spawn} ${roundedBottom}`;
 const modalBS = `${flexRow} ${m2} ${roundedBottom}`;
-const login = `${textPlain} ${display4} ${textCenter}`;
+const signupS = `${lead} ${textPlain} ${lead}`;
 const fbS = `${btn} ${btnPrimary} ${m2}`;
 const googleS = `${btn} ${btnWarning} ${m2}`;
 const twitterS = `${btn} ${btnInfo} ${m2}`;
 
-export default class Login extends React.Component {
+export default class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {showModal: false};
@@ -36,8 +35,8 @@ export default class Login extends React.Component {
   render() {
     return (
       <div>
-        <div className={login} onClick={this.open.bind(this)}>
-          login
+        <div className={signupS} onClick={this.open.bind(this)}>
+          signup.
         </div>
 
         <Modal

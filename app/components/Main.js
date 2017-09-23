@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Display from './Display.js';
 import Home from './Home.js';
-import NavBar from './NavBar.js';
+import NavView from './NavView.js';
 import About from './About.js';
 
 import { flexColumn } from 'bootstrap-css-modules/css/flex.css';
@@ -19,7 +19,7 @@ export default class Main extends Component {
   render() {
     return (
       <main className={fatherContainer}>
-        <NavBar />
+        <NavView />
         <Switch>
             <Route exact path="/home" component= { Home } />
             <Route exact path="/display" component= { Display } />
