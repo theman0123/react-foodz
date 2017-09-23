@@ -2,22 +2,14 @@ import React from 'react';
 
 import { display4 } from 'bootstrap-css-modules/css/type.css';
 import { textCenter } from 'bootstrap-css-modules/css/text.css';
-import { modalHeader } from 'bootstrap-css-modules/css/modal.css';
-import { btn, btnPrimary, btnWarning, btnInfo } from 'bootstrap-css-modules/css/buttons.css';
-import { m2 } from 'bootstrap-css-modules/css/margin.css';
+import { m1 } from 'bootstrap-css-modules/css/margin.css';
 import { flexRow } from 'bootstrap-css-modules/css/flex.css';
-import { roundedBottom } from 'bootstrap-css-modules/css/borders.css';
+import { textPlain, spawn, backgroundRed, backgroundGrey } from '../../myStyles.css';
 
-import { textPlain, spawn, modalClose, padL25cents } from '../../myStyles.css';
+import { Modal, Button } from 'react-bootstrap';
 
-import { Modal } from 'react-bootstrap';
-
-const modalCS = `${spawn} ${roundedBottom}`;
-const modalBS = `${flexRow} ${m2} ${roundedBottom}`;
+const modalBS = `${flexRow} ${backgroundRed}`;
 const login = `${textPlain} ${display4} ${textCenter}`;
-const fbS = `${btn} ${btnPrimary} ${m2}`;
-const googleS = `${btn} ${btnWarning} ${m2}`;
-const twitterS = `${btn} ${btnInfo} ${m2}`;
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -41,19 +33,18 @@ export default class Login extends React.Component {
         </div>
 
         <Modal
-          className={modalCS} show={this.state.showModal} onHide={this.close.bind(this)}
+          className={spawn}
+          show={this.state.showModal} onHide={this.close.bind(this)}
           >
 
-          <Modal.Header className={modalHeader}>
-            <Modal.Title className={padL25cents}>Login</Modal.Title>
-
-          <div className={modalClose} onClick={this.close.bind(this)}>close</div>
+          <Modal.Header className={backgroundGrey}closeButton>
+            <Modal.Title>Login</Modal.Title>
           </Modal.Header>
 
           <Modal.Body className={modalBS}>
-            <button className={fbS}>FB</button>
-            <button className={googleS}>google</button>
-            <button className={twitterS}>twitter</button>
+            <Button bsStyle="primary" className={m1}>facebook</Button>
+            <Button bsStyle="danger" className={m1}>google</Button>
+            <Button bsStyle="info" className={m1}>twitter</Button>
           </Modal.Body>
 
         </Modal>
