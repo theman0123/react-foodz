@@ -6,10 +6,11 @@ import Main from './components/Main.js';
 
 import { m3 } from 'bootstrap-css-modules/css/margin.css';
 import { bgFaded } from 'bootstrap-css-modules/css/background.css';
+import { flexContainer } from 'bootstrap-css-modules/css/flex.css';
 
-import { vh100, absContainer, vw75 } from './myStyles.css';
+import { vh100 } from './myStyles.css';
 
-const fatherContainer = `${absContainer} ${m3} ${vh100} ${bgFaded} ${vw75}`;
+const fatherContainer = `${flexContainer} ${m3} ${vh100} ${bgFaded}`;
 
 export default class App extends Component {
   constructor(props) {

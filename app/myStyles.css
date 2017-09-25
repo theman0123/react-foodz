@@ -1,27 +1,22 @@
 .absContainer {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  margin: auto;
   z-index: 1 !important;
 }
 
 .vh100 {
-  height: 93vh !important;
+  height: 100vh !important;
 }
 
-.vw75 {
-  width: 75vw !important;
+.vw95 {
+  width: 95vw !important;
 }
 
 .spawn {
   position: absolute;
   left: 10vw;
   top: 25vh;
-  background-color: #F8C57C;
-  border: 2px solid #F1938F;
-  z-index: 1;
+  border-radius: 2em !important;
 }
 
 .modalClose {
@@ -42,4 +37,40 @@
 .textPlain {
   text-decoration: none;
   color: inherit;
+}
+
+.aWhite a{
+  color: white !important;
+}
+
+.dropdownMenu ul{
+  background-color: indianred !important;
+}
+
+.dropdownMenu :global(a){
+  background-color: inherit !important;
+  color: white !important;
+}
+
+.textWhite{
+  color: white !important;
+}
+
+.backToWhite span{
+  background-color: white !important;
+}
+
+.backgroundRed {
+  background-color: indianred !important;
+  border-color: #B85853 !important;
+}
+
+.backgroundGrey {
+  background-color: #dce2ed !important;
+  border-color: #B85853 !important;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.marginAuto {
+  margin: auto !important;
 }
