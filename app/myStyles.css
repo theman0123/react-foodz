@@ -71,6 +71,6 @@
   border-radius: 5px 5px 0px 0px;
 }
 
-.marginAuto {
-  margin: auto !important;
+.point {
+  cursor: pointer !important;
 }

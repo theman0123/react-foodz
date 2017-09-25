@@ -2,31 +2,34 @@ import React, { Component } from 'react';
 
 import { LinkContainer } from 'react-router-bootstrap';
 
-import { backgroundRed, textWhite, backToWhite, aWhite, dropdownMenu } from '../myStyles.css';
-
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
+import myStyles from '../myStyles.css';
+
+const NavBarS = `${myStyles.backgroundRed} ${myStyles.aWhite}`;
+const FoodzS = `${myStyles.point} ${myStyles.textWhite}`;
 
 export default class NavView extends Component {
   constructor(props) {
     super(props);
-    this.state = {bar: 'foo'}
-  }
+    this.state = {bar: 'foo'};
+  };
+
   render() {
     return (
-      <Navbar className={`${backgroundRed} ${aWhite} `} collapseOnSelect>
+      <Navbar className={NavBarS} collapseOnSelect>
         <Navbar.Header>
-          <LinkContainer to="/home"><Navbar.Brand className={textWhite}>
+          <LinkContainer to="/home"><Navbar.Brand className={FoodzS}>
             Foodz
           </Navbar.Brand></LinkContainer>
-          <Navbar.Toggle className={backToWhite} />
+          <Navbar.Toggle className={myStyles.backToWhite} />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/display" className={dropdownMenu}>
+            <LinkContainer to="/display" className={myStyles.dropdownMenu}>
               <NavItem eventKey={1}>Display</NavItem>
             </LinkContainer>
-            <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown" className={dropdownMenu}>
+            <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown" className={myStyles.dropdownMenu}>
               <MenuItem eventKey={3.1}>Another action</MenuItem>
               <MenuItem eventKey={3.2}>Something else here</MenuItem>
               <MenuItem divider />
