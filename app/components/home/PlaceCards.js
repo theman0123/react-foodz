@@ -32,6 +32,6 @@ export default class PlaceCards extends Component {
             stars here
           </div>
         </Panel>
-    )
+    );
   }
 }
