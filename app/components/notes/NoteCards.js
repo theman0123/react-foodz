@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Panel } from 'react-bootstrap';
 
 import myStyles from '../../myStyles.css';
 
-import text from 'bootstrap-css-modules/css/text.css';
 import display from 'bootstrap-css-modules/css/display.css';
 import marginLeft from 'bootstrap-css-modules/css/marginLeft.css';
 
@@ -13,21 +13,15 @@ const starsS = `${marginLeft.mlAuto}`;
 const panelStyling = `${myStyles.backgroundRed} ${myStyles.textWhite} ${myStyles.point}`;
 
 export default class NoteCards extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {foo: 'bar'};
-  };
-
   render() {
     const title = (
     <div className={titleS}>
-      <div>Hamburger</div>
-      <div className={starsS}>5 stars</div>
+      <div>{this.props.title}</div>
+      <div className={starsS}>{this.props.stars} stars</div>
     </div>
   );
     const description = (
-    <h4>start of description...</h4>
+    <h4>{this.props.description}</h4>
   );
     return (
       <Panel className={panelStyling} header={title}>
@@ -36,3 +30,9 @@ export default class NoteCards extends Component {
     );
   }
 }
+
+NoteCards.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  stars: PropTypes.string,
+};

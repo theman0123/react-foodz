@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 
-import PlaceCards from './home/PlaceCards.js';
+import { Modal } from 'react-bootstrap';
 
+import ModalTest from './home/modalTest.js'
+
+import PlaceCards from './home/PlaceCards.js';
 
 import myStyles from '../myStyles.css';
 
@@ -16,8 +19,23 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {foo: 'bar'};
+    this.state = {
+      place: {
+        address: 'Address Here',
+        name: 'Olive Garden',
+        stars: '3',
+      },
+      showModal: false,
+    };
   };
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
 
   render() {
     return (
@@ -26,11 +44,25 @@ export default class Home extends Component {
           Explore
         </div>
 
-        <PlaceCards />
+        <PlaceCards
+          address={this.state.place.address}
+          name={this.state.place.name}
+          stars={this.state.place.stars}
+        />
 
-        <div className={newRestText}>
+        <div onClick={this.open.bind(this)} className={newRestText}>
           New Restaurant
         </div>
+
+        <ModalTest 
+          show={this.state.showModal}
+          close={this.close.bind(this)} 
+          title="yummy"
+          likes='5'
+          description='thisplacesucks'
+          placeName={this.state.place.name}
+          />
+            
       </div>
     );
   }

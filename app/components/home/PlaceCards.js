@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Panel } from 'react-bootstrap';
 
@@ -11,27 +12,26 @@ const starsS = `${text.textCenter}`;
 
 
 export default class PlaceCards extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {foo: 'bar'};
-  };
-
   render() {
     const title = (
-    <h3>Olive Garden</h3>
-  );
-    const address = (
-    <h4>address here</h4>
+      <h1 className={myStyles.textMd}>{this.props.name}</h1>
   );
     return (
       <Panel className={panelStyling} header={title}>
-          {address}
+          <h4>{this.props.address}</h4>
+
           <hr/>
+
           <div className={starsS}>
-            stars here
+            {this.props.stars} stars
           </div>
         </Panel>
     );
   }
 }
+
+PlaceCards.propTypes = {
+  name: PropTypes.string,
+  address: PropTypes.string,
+  stars: PropTypes.string,
+};
