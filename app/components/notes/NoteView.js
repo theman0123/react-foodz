@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Image, Col, Grid, Row } from 'react-bootstrap';
 
 import NoteCards from './NoteCards.js';
 
-import display from 'bootstrap-css-modules/css/type.css';
+import display from 'bootstrap-css-modules/css/display.css';
 import text from 'bootstrap-css-modules/css/text.css';
 import margin from 'bootstrap-css-modules/css/margin.css';
 import flex from 'bootstrap-css-modules/css/flex.css';
 
 import myStyles from '../../myStyles.css';
 
-const modalBS = `${flex.flexRow} ${myStyles.backgroundRed}`;
-const login = `${myStyles.textPlain} ${display.display4} ${text.textCenter} ${myStyles.point}`;
+const modalBS = `${display.dFlex} ${myStyles.backgroundRed}`;
+const modalRed = `${myStyles.textWhite} ${margin.m3} ${myStyles.textMd}`;
+const modalGrey = `${display.dFlex} ${flex.flexRow}`;
+const noteTitle = `${text.textCenter} ${myStyles.textMd}`;
 
 export default class NoteView extends Component {
   constructor(props) {
@@ -31,19 +33,28 @@ export default class NoteView extends Component {
 
   render() {
     const PlaceTitle = 'Chilis';
-    const noteTitle = (
-      <div> 
-        <div>likes</div>
-        <div>Chilis</div>
-        <div>Hamburger</div>
-        <div>stars</div>
+    const noteHeader = (
+      <div>
+        <div className={modalGrey}>
+          <Col xs={4}>
+            <span className={myStyles.textGreen}>3</span>
+            likes</Col>
+          <Col xs={4} className={text.fontItalic}>{PlaceTitle}</Col>
+          <Col xs={4}>
+            <span className={myStyles.textGreen}>3</span>
+            stars</Col>
+        </div>
+      <hr/>
+      <div className={noteTitle}>Hamburger</div>
       </div>
     );
     const description = (
-      <div>
-        <div>Best Hamburger EVER!!!</div>
-        <div>photo here</div>
-      </div>
+      <Grid>
+        <Row>
+          <div className={modalRed}>Best Hamburger EVER!!! order with extra sauce. this stuff is so good. this is a bad review</div>
+        </Row>
+        <Col xs={12} md={6}><Image src="http://www.inspiredtaste.net/wp-content/uploads/2016/08/Easy-Homemade-Hamburger-Recipe-2-1200.jpg" className={myStyles.noteImage} rounded /></Col>
+      </Grid>
     );
     return (
       <div>
@@ -56,17 +67,13 @@ export default class NoteView extends Component {
             >
 
             <Modal.Header className={myStyles.backgroundGrey}closeButton>
-              <Modal.Title>{noteTitle}</Modal.Title>
+              <Modal.Title>{noteHeader}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body className={modalBS}>
               {description}
             </Modal.Body>
 
-            <Modal.Footer>
-              <Button bsStyle="danger" className={margin.m1} onClick={this.close.bind(this)}>cancel</Button>
-              <Button bsStyle="info" className={margin.m1}>submit</Button>
-             </Modal.Footer>
           </Modal>
       </div>
     );
