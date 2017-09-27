@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Display from './Display.js';
+import NoteView from './notes/NoteView.js';
 import Home from './Home.js';
 import NavView from './NavView.js';
 import About from './About.js';
@@ -22,7 +22,7 @@ export default class Main extends Component {
         <NavView />
         <Switch>
             <Route exact path="/home" component= { Home } />
-            <Route exact path="/display" component= { Display } />
+            <Route exact path="/notes" component= { NoteView } />
             <Route exact path="/about" component={ About } />
         </Switch>
       </main>

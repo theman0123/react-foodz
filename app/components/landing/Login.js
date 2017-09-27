@@ -4,12 +4,12 @@ import { display4 } from 'bootstrap-css-modules/css/type.css';
 import { textCenter } from 'bootstrap-css-modules/css/text.css';
 import { m1 } from 'bootstrap-css-modules/css/margin.css';
 import { flexRow } from 'bootstrap-css-modules/css/flex.css';
-import { textPlain, spawn, backgroundRed, backgroundGrey } from '../../myStyles.css';
+import { textPlain, spawn, backgroundRed, backgroundGrey, point } from '../../myStyles.css';
 
 import { Modal, Button } from 'react-bootstrap';
 
 const modalBS = `${flexRow} ${backgroundRed}`;
-const login = `${textPlain} ${display4} ${textCenter}`;
+const login = `${textPlain} ${display4} ${textCenter} ${point}`;
 
 export default class Login extends React.Component {
   constructor(props) {
