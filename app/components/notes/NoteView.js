@@ -20,7 +20,17 @@ export default class NoteView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {showModal: false};
+    this.state = {
+      note: {
+        title: 'Hamburger',
+        description: 'omg this was the best hamburger ever. get xtra sauce it\'s the best',
+        stars: 5,
+        image: 'http://www.inspiredtaste.net/wp-content/uploads/2016/08/Easy-Homemade-Hamburger-Recipe-2-1200.jpg',
+        likes: 15,
+        placeName: 'Chilis',
+      },
+      showModal: false
+    };
   }
 
   close() {
@@ -32,34 +42,38 @@ export default class NoteView extends Component {
   }
 
   render() {
-    const PlaceTitle = 'Chilis';
     const noteHeader = (
       <div>
         <div className={modalGrey}>
           <Col xs={4}>
-            <span className={myStyles.textGreen}>3</span>
+            <span className={myStyles.textGreen}>{this.state.note.likes}
+            </span>
             likes</Col>
-          <Col xs={4} className={text.fontItalic}>{PlaceTitle}</Col>
+          <Col xs={4} className={text.fontItalic}>{this.state.note.placeName}</Col>
           <Col xs={4}>
-            <span className={myStyles.textGreen}>3</span>
+            <span className={myStyles.textGreen}>{this.state.note.stars}</span>
             stars</Col>
         </div>
       <hr/>
-      <div className={noteTitle}>Hamburger</div>
+      <div className={noteTitle}>{this.state.note.title}</div>
       </div>
     );
     const description = (
       <Grid>
         <Row>
-          <div className={modalRed}>Best Hamburger EVER!!! order with extra sauce. this stuff is so good. this is a bad review</div>
+          <div className={modalRed}>{this.state.note.description}</div>
         </Row>
-        <Col xs={12} md={6}><Image src="http://www.inspiredtaste.net/wp-content/uploads/2016/08/Easy-Homemade-Hamburger-Recipe-2-1200.jpg" className={myStyles.noteImage} rounded /></Col>
+        <Col xs={12} md={6}><Image src={this.state.note.image} className={myStyles.noteImage} rounded /></Col>
       </Grid>
     );
     return (
       <div>
         <div onClick={this.open.bind(this)}>
-          <NoteCards />
+          <NoteCards
+            title={this.state.note.title}
+            description={this.state.note.description}
+            stars={this.state.note.stars}
+          />
         </div>
 
         <Modal
