@@ -34,5 +34,5 @@ export default class NoteCards extends Component {
 NoteCards.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
-  stars: PropTypes.string,
+  stars: PropTypes.number,
 };
