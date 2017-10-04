@@ -35,8 +35,8 @@ export default class NavBar extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/display" className={myStyles.dropdownMenu}>
-              <NavItem eventKey={1}>Display</NavItem>
+            <LinkContainer to="/notes" className={myStyles.dropdownMenu}>
+              <NavItem eventKey={1}>Notes</NavItem>
             </LinkContainer>
             <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown" className={myStyles.dropdownMenu}>
               <MenuItem eventKey={3.1}>Another action</MenuItem>

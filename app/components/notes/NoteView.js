@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 
 import NoteCards from './NoteCards.js';
 import MNotesM from '../mnotesm/MNotesM.js';
+import MNForM from './mnform/MNForM.js';
+
+import text from 'bootstrap-css-modules/css/text.css';
+import myStyles from '../../myStyles.css';
+
+const newNote = `${text.textCenter} ${myStyles.textMd}`;
 
 export default class NoteView extends Component {
   constructor(props) {
@@ -16,22 +22,31 @@ export default class NoteView extends Component {
         likes: 15,
         placeName: 'Chilis',
       },
-      showModal: false
+      showNote: false,
+      showForm: false,
     };
   }
 
-  close() {
-    this.setState({ showModal: false });
+  openNote() {
+    this.setState({ showNote: true });
   }
 
-  open() {
-    this.setState({ showModal: true });
+  closeNote() {
+    this.setState({ showNote: false });
+  }
+
+  openForm() {
+    this.setState({ showForm: true });
+  }
+
+  closeForm() {
+    this.setState({ showForm: false });
   }
 
   render() {
     return (
       <div>
-        <div onClick={this.open.bind(this)}>
+        <div onClick={this.openNote.bind(this)}>
           <NoteCards
             title={this.state.note.title}
             description={this.state.note.description}
@@ -40,8 +55,8 @@ export default class NoteView extends Component {
         </div>
 
         <MNotesM
-          show={this.state.showModal}
-          close={this.close.bind(this)}
+          show={this.state.showNote}
+          close={this.closeNote.bind(this)}
 
           likes={this.state.note.likes}
           placeName={this.state.note.placeName}
@@ -50,6 +65,17 @@ export default class NoteView extends Component {
           description={this.state.note.description}
           image={this.state.note.image}
         />
+
+
+        <div className={newNote} onClick={this.openForm.bind(this)}>
+          New Note
+        </div>
+
+        <MNForM
+          showForm={this.state.showForm}
+          close={this.closeForm.bind(this)}
+        />
+
       </div>
     );
   }
