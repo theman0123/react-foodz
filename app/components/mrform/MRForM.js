@@ -63,7 +63,7 @@ export default class MRForM extends Component {
                 type="text"
                 placeholder="Tom's Taco Shop"
                 value={this.state.newPlaceName}
-                onChange={(e) => {this.handleChange(e)}}
+                onChange={(e) => this.handleChange(e)}
               />
 
               <FieldGroup

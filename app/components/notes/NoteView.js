@@ -24,6 +24,7 @@ export default class NoteView extends Component {
       },
       showNote: false,
       showForm: false,
+      newNoteTitle: '',
     };
   }
 
@@ -41,6 +42,10 @@ export default class NoteView extends Component {
 
   closeForm() {
     this.setState({ showForm: false });
+  }
+  
+  handleChange(e) {
+    this.setState({ newNoteTitle: e.target.value });
   }
 
   render() {
@@ -74,6 +79,8 @@ export default class NoteView extends Component {
         <MNForM
           showForm={this.state.showForm}
           close={this.closeForm.bind(this)}
+          newNoteTitle={this.state.newNoteTitle}
+          onChange={(e) => this.handleChange(e)}
         />
 
       </div>
