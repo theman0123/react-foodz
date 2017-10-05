@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Modal } from 'react-bootstrap';
 
-import MNotesM from './mnotesm/MNotesM.js'
+import MRForM from './mrform/MRForM.js'
 
 import PlaceCards from './home/PlaceCards.js';
 
@@ -25,16 +25,16 @@ export default class Home extends Component {
         name: 'Olive Garden',
         stars: '3',
       },
-      showModal: false,
+      showForm: false,
     };
   };
 
   close() {
-    this.setState({ showModal: false });
+    this.setState({ showForm: false });
   }
 
   open() {
-    this.setState({ showModal: true });
+    this.setState({ showForm: true });
   }
 
   render() {
@@ -54,16 +54,10 @@ export default class Home extends Component {
           New Restaurant
         </div>
 
-        <MNotesM 
-          show={this.state.showModal}
+        <MRForM 
+          showForm={this.state.showForm}
           close={this.close.bind(this)} 
-          title="yummy"
-          likes='5'
-          description='thisplacesucks'
-          placeName={this.state.place.name}
-          stars={this.state.place.stars}
-          image={this.state.place.image}
-          />
+        />
             
       </div>
     );
