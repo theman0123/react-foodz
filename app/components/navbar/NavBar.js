@@ -4,25 +4,34 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
-import myStyles from '../myStyles.css';
+import View from './View.js';
+
+import myStyles from '../../myStyles.css';
 
 const NavBarS = `${myStyles.backgroundRed} ${myStyles.aWhite}`;
 const FoodzS = `${myStyles.point} ${myStyles.textWhite}`;
+//for View component to display inside NavBar//
+//<Nav>
+//              <NavItem>
+//                {<View view={this.props.placeName}
+//                />}
+//             </NavItem>
+//            </Nav>
 
-export default class NavView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {bar: 'foo'};
-  };
+export default class NavBar extends Component {
 
   render() {
     return (
       <Navbar className={NavBarS} collapseOnSelect>
         <Navbar.Header>
-          <LinkContainer to="/home"><Navbar.Brand className={FoodzS}>
-            Foodz
-          </Navbar.Brand></LinkContainer>
-          <Navbar.Toggle className={myStyles.backToWhite} />
+          <LinkContainer to="/home">
+            <Navbar.Brand className={FoodzS}>
+              Foodz
+            </Navbar.Brand></LinkContainer>
+
+            <Navbar.Toggle className={myStyles.backToWhite}
+            />
+            
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>

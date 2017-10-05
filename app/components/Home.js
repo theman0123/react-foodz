@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Modal } from 'react-bootstrap';
 
-import ModalTest from './home/modalTest.js'
+import MNotesM from './mnotesm/MNotesM.js'
 
 import PlaceCards from './home/PlaceCards.js';
 
@@ -54,13 +54,15 @@ export default class Home extends Component {
           New Restaurant
         </div>
 
-        <ModalTest 
+        <MNotesM 
           show={this.state.showModal}
           close={this.close.bind(this)} 
           title="yummy"
           likes='5'
           description='thisplacesucks'
           placeName={this.state.place.name}
+          stars={this.state.place.stars}
+          image={this.state.place.image}
           />
             
       </div>

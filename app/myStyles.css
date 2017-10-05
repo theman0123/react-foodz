@@ -83,6 +83,14 @@
   font-size: 1.5em !important;
 }
 
+.textLrg {
+  font-size: 2.5em !important;
+}
+
+.mRight {
+  margin-right: 31vw !important;
+}
+
 .textGreen {
   color: green !important;
 }
