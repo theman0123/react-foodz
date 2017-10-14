@@ -15,10 +15,4 @@ const middleware = applyMiddleware(thunk, logger)
 
 const store = createStore(reducer, middleware);
 
-
-
-store.subscribe(() => {
-  console.log('stateChange:', store.getState())})
-
-
 store.dispatch({type: 'NEW_NOTE'})
