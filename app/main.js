@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
+import store from './store.js';
+import { Provider } from 'react-redux';
 
 import App from './App.js';
 
@@ -15,9 +17,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
   if ( reactNode ) {
     ReactDOM.render((
-      <Router>
-        <App />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
     ), reactNode);
   }
 });
