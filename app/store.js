@@ -15,4 +15,17 @@ const middleware = applyMiddleware(thunk, logger)
 
 const store = createStore(reducer, middleware);
 
-store.dispatch({type: 'NEW_NOTE'})
+store.dispatch({type: 'NEW_NOTE',
+                id: '123',
+                placeId: '543',
+                title: 'chickenTacos',
+                foodDetails: 'Awesome',
+                show: true,
+                likes: 4,
+                stars: 3,
+                photo: 'somephoto',
+                tags: ['tacos', 'local', 'foodmania']
+               })
+store.dispatch({type: 'DELETE_NOTE', id: '123'})
+
+export default store;
