@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import fakeApi from '../fakeApi.js';
 
 const notes = (state={
   byId: {},
@@ -56,6 +57,9 @@ const notes = (state={
           });
         }
       }
+    case 'FETCH_NOTES': {
+      return fakeApi.notes
+    }
     default: return state;
   }
 }
