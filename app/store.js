@@ -7,10 +7,10 @@ import reducer from './reducers/index.js';
 const middleware = applyMiddleware(thunk, logger);
 
 const store = createStore(reducer, middleware);
-store.dispatch({type: 'FETCH_NOTES'})
 export default store;
 
 
+//store.dispatch({type: 'FETCH_NOTES'})
 
 /*
 //PLACE

@@ -12,6 +12,8 @@ import text from 'bootstrap-css-modules/css/text.css';
 import position from 'bootstrap-css-modules/css/position.css';
 import type from 'bootstrap-css-modules/css/type.css';
 
+import {newPlace} from '../actions/places.js';
+
 const newRestText = `${text.textCenter} ${position.fixedBottom} ${myStyles.point}`;
 const exploreS = `${text.textCenter} ${text.fontItalic} ${type.h4}`;
 
@@ -36,7 +38,15 @@ export default class Home extends Component {
   open() {
     this.setState({ showForm: true });
   }
-
+  
+//  const mapDispatchToProps = dispatch => {
+//  return {
+//    onPlaceClick: id => {
+//      dispatch(newPlace(id))
+//    }
+//  }
+//}
+//     dispatch(newPlace('5', 'chilis', '234 s. 234 n., slc, ut 84111', '5', '2', 'urlphoto', ['tacos', 'burritos']))
   render() {
     return (
       <div>
