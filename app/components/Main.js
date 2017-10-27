@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import NoteView from './notes/NoteView.js';
-import Home from './Home.js';
-import NavBar from './navbar/NavBar.js';
-import About from './About.js';
+import NoteView from '../containers/NoteView.js';
+import Home from '../containers/Home.js';
+import NavBar from '../containers/NavBar.js';
+import About from '../containers/About.js';
 
 import { flexColumn } from 'bootstrap-css-modules/css/flex.css';
 

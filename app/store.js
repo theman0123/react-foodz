@@ -4,9 +4,14 @@ import thunk from 'redux-thunk';
 
 import reducer from './reducers/index.js';
 
-const middleware = applyMiddleware(thunk, logger)
+const middleware = applyMiddleware(thunk, logger);
 
 const store = createStore(reducer, middleware);
+export default store;
+
+
+//store.dispatch({type: 'FETCH_NOTES'})
+
 /*
 //PLACE
 store.dispatch({type: 'NEW_PLACE',
@@ -71,5 +76,3 @@ store.dispatch({type: 'FETCH_USERS'})
 store.dispatch({type: 'FETCH_USERS_ERROR', errorMessage: 'something went wrong'})
 store.dispatch({type: 'FETCH_USERS_SUCCESS'})
 */
-
-export default store;

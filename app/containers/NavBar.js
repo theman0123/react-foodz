@@ -4,9 +4,9 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
-import View from './View.js';
+import View from '../components/View.js';
 
-import myStyles from '../../myStyles.css';
+import myStyles from '../myStyles.css';
 
 const NavBarS = `${myStyles.backgroundRed} ${myStyles.aWhite}`;
 const FoodzS = `${myStyles.point} ${myStyles.textWhite}`;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Landing from './components/Landing.js';
+import Landing from './containers/Landing.js';
 import Main from './components/Main.js';
 
 import { m3 } from 'bootstrap-css-modules/css/margin.css';

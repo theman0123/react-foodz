@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import NoteCards from './NoteCards.js';
-import MNotesM from '../mnotesm/MNotesM.js';
-import MNForM from './mnform/MNForM.js';
+import NoteCards from '../components/notes/NoteCards.js';
+import NotesModal from '../components/notes/NotesModal.js';
+import NotesForm from '../components/notes/NotesForm.js';
 
 import text from 'bootstrap-css-modules/css/text.css';
-import myStyles from '../../myStyles.css';
+import myStyles from '../myStyles.css';
 
 const newNote = `${text.textCenter} ${myStyles.textMd}`;
 
@@ -51,6 +51,7 @@ export default class NoteView extends Component {
   render() {
     return (
       <div>
+      
         <div onClick={this.openNote.bind(this)}>
           <NoteCards
             title={this.state.note.title}
@@ -59,7 +60,7 @@ export default class NoteView extends Component {
           />
         </div>
 
-        <MNotesM
+        <NotesModal
           show={this.state.showNote}
           close={this.closeNote.bind(this)}
 
@@ -76,7 +77,7 @@ export default class NoteView extends Component {
           New Note
         </div>
 
-        <MNForM
+        <NotesForm
           showForm={this.state.showForm}
           close={this.closeForm.bind(this)}
           newNoteTitle={this.state.newNoteTitle}

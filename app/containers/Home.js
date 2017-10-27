@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import { Modal } from 'react-bootstrap';
-
-import MRForM from './mrform/MRForM.js'
-
-import PlaceCards from './home/PlaceCards.js';
+import Filter from '../components/places/Filter.js';
+import PlacesForm from '../components/places/PlacesForm.js';
+import PlaceCards from '../components/places/PlaceCards.js';
 
 import myStyles from '../myStyles.css';
 
 import text from 'bootstrap-css-modules/css/text.css';
 import position from 'bootstrap-css-modules/css/position.css';
 import type from 'bootstrap-css-modules/css/type.css';
+
+import {newPlace} from '../actions/places.js';
 
 const newRestText = `${text.textCenter} ${position.fixedBottom} ${myStyles.point}`;
 const exploreS = `${text.textCenter} ${text.fontItalic} ${type.h4}`;
@@ -24,6 +24,7 @@ export default class Home extends Component {
         address: 'Address Here',
         name: 'Olive Garden',
         stars: '3',
+        visited: false
       },
       showForm: false,
     };
@@ -36,10 +37,20 @@ export default class Home extends Component {
   open() {
     this.setState({ showForm: true });
   }
-
+  
+//  const mapDispatchToProps = dispatch => {
+//  return {
+//    onPlaceClick: id => {
+//      dispatch(newPlace(id))
+//    }
+//  }
+//}
+//     dispatch(newPlace('5', 'chilis', '234 s. 234 n., slc, ut 84111', '5', '2', 'urlphoto', ['tacos', 'burritos']))
   render() {
     return (
       <div>
+        <div><Filter /></div>
+      
         <div className={exploreS}>
           Explore
         </div>
@@ -54,7 +65,7 @@ export default class Home extends Component {
           New Restaurant
         </div>
 
-        <MRForM 
+        <PlacesForm
           showForm={this.state.showForm}
           close={this.close.bind(this)} 
         />

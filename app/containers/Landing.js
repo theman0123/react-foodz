@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import Login from './landing/Login';
-import Signup from './landing/Signup';
-import FoodzLogo from './landing/FoodzLogo';
+import Login from '../components/landing/Login';
+import Signup from '../components/landing/Signup';
+import FoodzLogo from '../components/landing/FoodzLogo';
 
 import { row } from 'bootstrap-css-modules/css/row.css';
 import { col12, col3 } from 'bootstrap-css-modules/css/columns.css';
