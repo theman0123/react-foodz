@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import text from 'bootstrap-css-modules/css/text.css';
 
-import myStyles from '../../myStyles.css';
+import myStyles from '../myStyles.css';
 
 const view = `${text.textCenter} ${myStyles.textLrg} ${myStyles.mRight}`;
 

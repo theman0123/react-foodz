@@ -7,11 +7,11 @@ import FormBody from './FormBody.js';
 
 import display from 'bootstrap-css-modules/css/display.css';
 import flex from 'bootstrap-css-modules/css/flex.css';
-import myStyles from '../../../myStyles.css';
+import myStyles from '../../myStyles.css';
 
 const modalBS = `${display.dFlex} ${flex.flexColumn} ${myStyles.backgroundRed}`;
 
-export default class MNForM extends Component {
+export default class NotesForm extends Component {
   
   saveNote(e) {
     console.log('NoteSaved');
@@ -39,7 +39,7 @@ export default class MNForM extends Component {
               newNoteTitle={this.props.newNoteTitle}
               onChange={this.props.onChange}
             />
-      
+
             <Button bsStyle="info" onClick={this.addPhoto.bind(this)}>
               Add Photo
             </Button>
@@ -53,7 +53,7 @@ export default class MNForM extends Component {
   };
 }
 
-MNForM.propTypes = {
+NotesForm.propTypes = {
   showForm: PropTypes.bool,
   close: PropTypes.func,
   newNoteTitle: PropTypes.string,

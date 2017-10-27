@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-import { Modal } from 'react-bootstrap';
-
-import MRForM from './mrform/MRForM.js'
-
-import PlaceCards from './home/PlaceCards.js';
+import Filter from '../components/places/Filter.js';
+import PlacesForm from '../components/places/PlacesForm.js';
+import PlaceCards from '../components/places/PlaceCards.js';
 
 import myStyles from '../myStyles.css';
 
@@ -26,6 +24,7 @@ export default class Home extends Component {
         address: 'Address Here',
         name: 'Olive Garden',
         stars: '3',
+        visited: false
       },
       showForm: false,
     };
@@ -50,6 +49,8 @@ export default class Home extends Component {
   render() {
     return (
       <div>
+        <div><Filter /></div>
+      
         <div className={exploreS}>
           Explore
         </div>
@@ -64,7 +65,7 @@ export default class Home extends Component {
           New Restaurant
         </div>
 
-        <MRForM 
+        <PlacesForm
           showForm={this.state.showForm}
           close={this.close.bind(this)} 
         />

@@ -1,9 +1,11 @@
 import update from 'immutability-helper';
 import fetch from 'isomorphic-fetch';
+import visibilityFilter from './visibilityFilter.js';
 
 const places = (state={
   byId: {},
-  allPlaces: []
+  allPlaces: [],
+  visibilityFilter
 }, action) => {
   switch(action.type) {
     case 'FETCH_PLACE': {

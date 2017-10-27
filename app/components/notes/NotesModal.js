@@ -12,7 +12,7 @@ import myStyles from '../../myStyles.css';
 
 const modalBS = `${display.dFlex} ${myStyles.backgroundRed}`;
 
-export default class MNotesM extends Component {
+export default class NotesModal extends Component {
   render() {
     return (
       <Modal
@@ -43,7 +43,7 @@ export default class MNotesM extends Component {
   };
 }
 
-MNotesM.propTypes = {
+NotesModal.propTypes = {
   show: PropTypes.bool,
   close: PropTypes.func,
   likes: PropTypes.number,

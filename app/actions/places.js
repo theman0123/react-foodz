@@ -6,6 +6,7 @@ export const FETCH_PLACES = 'FETCH_PLACES';
 export const NEW_PLACE = 'NEW_PLACE';
 export const EDIT_PLACE = 'EDIT_PLACE';
 export const DELETE_PLACE = 'DELETE_PLACE';
+export const VISIBILITY_FILTER = 'VISIBILITY_FILTER';
 
 //import { CALL_API, Schemas } from '../middleware/api'
 
@@ -46,10 +47,10 @@ export function newPlace(id, placeName, address, likes, stars, photo, categories
     stars,
     photo,
     categories,
-  }
-}
+  };
+};
 
-export function editPlace(id, placeName, address, likes, stars, photo, categories,) {
+export function editPlace(id, placeName, address, likes, stars, photo, categories) {
   return {
     type: EDIT_PLACE,
     id,
@@ -59,9 +60,13 @@ export function editPlace(id, placeName, address, likes, stars, photo, categorie
     stars,
     photo,
     categories,
-  }
-}
+  };
+};
 
 export function deletePlace(id) {
-  return { type: DELETE_PLACE, id}
-}
+  return { type: DELETE_PLACE, id};
+};
+
+export function visibilityFilter(filter) {
+  return { type: VISIBILITY_FILTER, filter };
+};
