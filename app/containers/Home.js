@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 import Filter from '../components/places/Filter.js';
 import PlacesForm from '../components/places/PlacesForm.js';
 import PlaceCards from '../components/places/PlaceCards.js';
+import VisiblePlaces from './getVisiblePlaces.js'; 
 
 import myStyles from '../myStyles.css';
 
 import text from 'bootstrap-css-modules/css/text.css';
 import position from 'bootstrap-css-modules/css/position.css';
 import type from 'bootstrap-css-modules/css/type.css';
-
-import {newPlace} from '../actions/places.js';
 
 const newRestText = `${text.textCenter} ${position.fixedBottom} ${myStyles.point}`;
 const exploreS = `${text.textCenter} ${text.fontItalic} ${type.h4}`;
@@ -54,7 +53,13 @@ export default class Home extends Component {
         <div className={exploreS}>
           Explore
         </div>
-
+      
+        <VisiblePlaces
+          address={this.state.place.address}
+          name={this.state.place.name}
+          stars={this.state.place.stars}
+        />
+      
         <PlaceCards
           address={this.state.place.address}
           name={this.state.place.name}

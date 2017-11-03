@@ -10,7 +10,7 @@ const store = createStore(reducer, middleware);
 export default store;
 
 
-//store.dispatch({type: 'FETCH_NOTES'})
+store.dispatch({type: 'FETCH_PLACES'})
 
 /*
 //PLACE
