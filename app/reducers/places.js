@@ -1,6 +1,8 @@
 import update from 'immutability-helper';
-import fetch from 'isomorphic-fetch';
+//import fetch from 'isomorphic-fetch';
 import visibilityFilter from './visibilityFilter.js';
+
+import { RECEIVE_PLACES, REQUEST_PLACES, NEW_PLACE, EDIT_PLACE, DELETE_PLACE, VISIBILITY_FILTER } from '../actions/places.js';
 
 const places = (state={
   byId: {},
@@ -8,8 +10,30 @@ const places = (state={
   visibilityFilter
 }, action) => {
   switch(action.type) {
-    case 'FETCH_PLACE': {
-      return [...state];
+    case 'REQUEST_PLACES':
+      return {
+        ...state,
+        isFetching: true,
+        didInvalidate: false,
+        location: action.location
+      }
+    case 'RECEIVE_PLACES': {
+      return update(state, {
+//        byId: {
+//          [action.id]: {
+//            $set: {
+//              id: action.id,
+//              placeName: action.placeName,
+//              address: action.address,
+//              likes: action.likes,
+//              stars: action.stars,
+//              photo: action.photo,
+//              categories: action.categories}}},
+        allPlaces: {$push: [action.places[0].restaurant.id]},
+        isFetching: {$set: false},
+        didInvalidate: {$set: false},
+        lastUpdated: {$set: action.receivedAt},
+      });
     }
     case 'NEW_PLACE': {
       return update(state, {
@@ -58,47 +82,5 @@ const places = (state={
     default: return state; 
   }
 };
-
-//checkout: code from redux complex state example. then, normalizr and entities... make sure state shape is appropriate, fetch while incorporating the below code:
-
-//    this.pullRestaurants = function () {
-//        
-//        if ("geolocation" in navigator) {
-//
-//            navigator.geolocation.getCurrentPosition(function(position) {
-//                var lat = position.coords.latitude;
-//                var lon = position.coords.longitude;
-//            
-//                getFoodz(lat, lon);
-//            })
-//        } else {
-//          console.log('no geolocation');
-//        }
-//    }
-//    var getFoodz = function(lat, lon) {
-//        
-//        if(lat && lon) {    
-//            return $http.get(('https://developers.zomato.com/api/v2.1/search?' + 'lat=' + lat +'&lon=' + lon), {
-//                headers: {"X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"}
-//            }).then(function(response){
-//                var data = response.data.restaurants;
-//   
-//                data.forEach(function(item) {
-//                    var path = item.restaurant.location.address;
-//
-//                    var Restaurant = {
-//                        name: item.restaurant.name,
-//                        address: path,
-//                        slimAddress: path.substring(0, path.length - 10) + "...",
-//                        rating: Math.floor(item.restaurant.user_rating.aggregate_rating),
-//                        id: item.restaurant.id,
-//                        cuisine_type: item.restaurant.cuisines,
-//                        menu_url: item.restaurant.menu_url
-//                    }
-//                    nearArray.push(Restaurant);
-//                })
-//            })   
-//        }
-//    }
 
 export default places;

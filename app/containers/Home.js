@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Filter from '../components/places/Filter.js';
 import PlacesForm from '../components/places/PlacesForm.js';
 import PlaceCards from '../components/places/PlaceCards.js';
 import VisiblePlaces from './getVisiblePlaces.js'; 
+import { shouldFetchPlaces } from '../actions/places.js';
 
 import myStyles from '../myStyles.css';
 
@@ -14,7 +16,7 @@ import type from 'bootstrap-css-modules/css/type.css';
 const newRestText = `${text.textCenter} ${position.fixedBottom} ${myStyles.point}`;
 const exploreS = `${text.textCenter} ${text.fontItalic} ${type.h4}`;
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -28,7 +30,11 @@ export default class Home extends Component {
       showForm: false,
     };
   };
-
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(shouldFetchPlaces())
+  }
+  
   close() {
     this.setState({ showForm: false });
   }
@@ -36,30 +42,22 @@ export default class Home extends Component {
   open() {
     this.setState({ showForm: true });
   }
-  
-//  const mapDispatchToProps = dispatch => {
-//  return {
-//    onPlaceClick: id => {
-//      dispatch(newPlace(id))
-//    }
-//  }
-//}
-//     dispatch(newPlace('5', 'chilis', '234 s. 234 n., slc, ut 84111', '5', '2', 'urlphoto', ['tacos', 'burritos']))
+
   render() {
     return (
       <div>
         <div><Filter /></div>
-      
+
         <div className={exploreS}>
           Explore
         </div>
-      
+
         <VisiblePlaces
           address={this.state.place.address}
           name={this.state.place.name}
           stars={this.state.place.stars}
         />
-      
+
         <PlaceCards
           address={this.state.place.address}
           name={this.state.place.name}
@@ -72,10 +70,12 @@ export default class Home extends Component {
 
         <PlacesForm
           showForm={this.state.showForm}
-          close={this.close.bind(this)} 
+          close={this.close.bind(this)}
         />
-            
+
       </div>
     );
   }
 };
+
+export default connect()(Home);
