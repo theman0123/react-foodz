@@ -2,31 +2,28 @@ import { normalize, schema } from 'normalizr'
 import { camelizeKeys } from 'humps'
 
 // Extracts the next page URL from Github API response.
-const getNextPageUrl = response => {
-  const link = response.headers.get('link')
-  if (!link) {
-    return null
-  }
+//const getNewStart = (response, location) => {
+//  const newStart = response.results_start + 20;
+//  const nextURL = API_ROOT + `search?lat=${location.lat}&lon=${location.lon}&start${start}`;
+//  
+//  return !newStart ? null : nextUrl;
+//}
 
-  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
-  if (!nextLink) {
-    return null
-  }
+const API_ROOT = 'https://developers.zomato.com/api/v2.1/';
 
-  return nextLink.split(';')[0].slice(1, -1)
-}
-
-const API_ROOT = `developers.zomato.com/api/v2.1/search?lat={lat}&lon={lon}`;
-
-const header = {
-  "X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"
-};
+//const header = {
+//  "X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"
+//};
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
-const callApi = (lat, lon) => {
-//  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
-
-  return fetch(`developers.zomato.com/api/v2.1/search?lat={lat}&lon={lon}`)
+const callApi = (endpoint, schema, start = 0) => {
+  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint + `&start=${start}`;
+  
+  const headers = {
+    "X-Zomato-API-Key": '451e00ec0a1c87145925d326a5319666'
+  }
+  
+  return fetch(fullUrl, {headers: headers})
     .then(response =>
       response.json().then(json => {
         if (!response.ok) {
@@ -34,11 +31,11 @@ const callApi = (lat, lon) => {
         }
 
         const camelizedJson = camelizeKeys(json)
-        const nextPageUrl = getNextPageUrl(response)
+        const nextUrl = fullUrl//start += 20;
 
         return Object.assign({},
-          normalize(camelizedJson),
-          { nextPageUrl }
+          normalize(camelizedJson, schema),
+          { nextUrl }
         )
       })
     )
@@ -57,9 +54,9 @@ const callApi = (lat, lon) => {
 // leading to a frozen UI as it wouldn't find "someuser" in the entities.
 // That's why we're forcing lower cases down there.
 
-//const placesSchema = new schema.Entity('places', {}, {
-//  
-//})
+const placesSchema = new schema.Entity('places', {}, {
+  idAttribute: places => places.restaurants.id  
+})
 
 const userSchema = new schema.Entity('users', {}, {
   idAttribute: user => user.login.toLowerCase()
@@ -73,6 +70,7 @@ const repoSchema = new schema.Entity('repos', {
 
 // Schemas for Github API responses.
 export const Schemas = {
+  PLACES: placesSchema,
   USER: userSchema,
   USER_ARRAY: [userSchema],
   REPO: repoSchema,
@@ -111,13 +109,13 @@ export default store => next => action => {
   }
 
   const actionWith = data => {
-    const finalAction = Object.assign({}, action, data)
-    delete finalAction[CALL_API]
-    return finalAction
-  }
+    const finalAction = Object.assign({}, action, data);
+    delete finalAction[CALL_API];
+    return finalAction;
+  };
 
   const [ requestType, successType, failureType ] = types
-  next(actionWith({ type: requestType }))
+  next(actionWith({ type: requestType }));
 
   return callApi(endpoint, schema).then(
     response => next(actionWith({
@@ -128,5 +126,5 @@ export default store => next => action => {
       type: failureType,
       error: error.message || 'Something bad happened'
     }))
-  )
-}
+  );
+};

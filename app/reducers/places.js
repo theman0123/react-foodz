@@ -1,9 +1,59 @@
 import update from 'immutability-helper';
-//import fetch from 'isomorphic-fetch';
 import visibilityFilter from './visibilityFilter.js';
 
-import { RECEIVE_PLACES, REQUEST_PLACES, NEW_PLACE, EDIT_PLACE, DELETE_PLACE, VISIBILITY_FILTER } from '../actions/places.js';
+import * as ActionTypes from '../actions/places.js';
+import merge from 'lodash/merge'
+import paginate from './paginate'
+import { combineReducers } from 'redux'
 
+// Updates an entity cache in response to any action with response.entities.
+const entities = (state = { users: {}, places: {} }, action) => {
+  if (action.response && action.response.entities) {
+    return merge({}, state, action.response.entities)
+  }
+
+  return state
+}
+
+const errorMessage = (state = null, action) => {
+  const { type, error } = action
+  
+  if (type === ActionTypes.RESET_ERROR_MESSAGE) {
+    return null
+  } else if (error) {
+    return error
+  }
+  
+  return state;
+}
+
+const pagination = combineReducers({
+  places: paginate({
+    mapActionToKey: action => action.login,
+    types: [
+      ActionTypes.PLACES_REQUEST,
+      ActionTypes.PLACES_SUCCESS,
+      ActionTypes.PLACES_FAILURE
+    ]
+  }),
+})
+//PAGINATION EXAMPLE
+//  stargazersByRepo: paginate({
+//    mapActionToKey: action => action.fullName,
+//    types: [
+//      ActionTypes.STARGAZERS_REQUEST,
+//      ActionTypes.STARGAZERS_SUCCESS,
+//      ActionTypes.STARGAZERS_FAILURE
+//    ]
+//  })
+
+const rootReducer = combineReducers({
+  entities,
+//  pagination,
+  errorMessage,
+})
+
+//ignoring below for now
 const places = (state={
   byId: {},
   allPlaces: [],
@@ -30,9 +80,6 @@ const places = (state={
 //              photo: action.photo,
 //              categories: action.categories}}},
         allPlaces: {$push: [action.places[0].restaurant.id]},
-        isFetching: {$set: false},
-        didInvalidate: {$set: false},
-        lastUpdated: {$set: action.receivedAt},
       });
     }
     case 'NEW_PLACE': {
@@ -82,5 +129,5 @@ const places = (state={
     default: return state; 
   }
 };
-
-export default places;
+export default rootReducer;
+//export default places;

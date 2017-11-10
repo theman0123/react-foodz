@@ -1,5 +1,5 @@
 //import fetch from 'isomorphic-fetch';
-import { CALL_API } from '../middleware/api.js';
+import { CALL_API, Schemas } from '../middleware/api.js';
 
 //actions
 
@@ -14,11 +14,11 @@ export const setVisibilityFilter = (filter) => ({
 })
 
 
-export const USER_REQUEST = 'USER_REQUEST';
-export const USER_SUCCESS = 'USER_SUCCESS';
-export const USER_FAILURE = 'USER_FAILURE';
+export const PLACES_REQUEST = 'PLACES_REQUEST';
+export const PLACES_SUCCESS = 'PLACES_SUCCESS';
+export const PLACES_FAILURE = 'PLACES_FAILURE';
 export const RECEIVE_PLACES = 'RECEIVE_PLACES';
-export const REQUEST_PLACES = 'REQUEST_PLACES';
+
 ////////example
 // Fetches a single user from Github API.
 // Relies on the custom API middleware defined in ../middleware/api.js.
@@ -39,41 +39,47 @@ export const requestPlaces = (location) => ({
   location
 });
 
+
 export const receivePlaces = places => ({
   type: RECEIVE_PLACES,
   places: places.restaurants,
   receivedAt: Date.now()
 });
 
-const fetchPlaces = location => dispatch => {
-  dispatch(requestPlaces(location))
-  return fetch(`https://developers.zomato.com/api/v2.1/search?lat=${location.lat}&lon=${location.lon}`, {headers: {"X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"}})
-    .then(response => response.json())
-    .then(places => dispatch(receivePlaces(places)))
-};
+
+
+const fetchPlaces = location => ({
+  [CALL_API]: {
+    types: [ PLACES_REQUEST, PLACES_SUCCESS, PLACES_FAILURE ],
+    endpoint: `https://developers.zomato.com/api/v2.1/search?lat=${location.lat}&lon=${location.lon}`,
+    schema: Schemas.PLACES
+  }
+//  dispatch(requestPlaces(location))
+//  return fetch(`https://developers.zomato.com/api/v2.1/search?lat=${location.lat}&lon=${location.lon}`, {headers: {"X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"}})
+//    .then(response => response.json())
+//    .then(places => {
+//    console.log(places)
+//    dispatch(receivePlaces(places))
+//  })
+});
 
 export const shouldFetchPlaces = () => (dispatch, getState) => {
-  const state = getState();
-//  if (!state.places) {
-//     console.log('in');
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const location = {
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        }
-        dispatch(fetchPlaces(location));
-      });
-    }
-    else console.log('no geolocation');
+//  const state = getState().places;
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const location = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      }
+      dispatch(fetchPlaces(location));
+    });
   }
-//}
+  else console.log('no geolocation');
+}
 
 //({
 //  [CALL_API]: {
 //    types: [PLACES_REQUEST, PLACES_SUCCESS, PLACES_FAILURE],
-//    lat,
-//    lon,
 //    endpoint: `developers.zomato.com/api/v2.1/search?lat={lat}&lon={lon}`,
 //    headers: {"X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"},
 //    schema: Schemas.PLACES
