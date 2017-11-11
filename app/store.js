@@ -2,15 +2,29 @@ import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
+import rootReducer from './reducers/places.js';
 import reducer from './reducers/index.js';
+import api from './middleware/api.js';
 
-const middleware = applyMiddleware(thunk, logger);
+const middleware = applyMiddleware(thunk, api, logger);
 
-const store = createStore(reducer, middleware);
+
+//const configureStore = preloadedState => {
+//  const store = createStore(
+//    rootReducer,
+//    preloadedState,
+//    compose(
+//      applyMiddleware(thunk, api, createLogger()),
+//      DevTools.instrument()
+//    )
+//  )
+
+const store = createStore(
+  rootReducer, middleware);
 export default store;
 
 
-//store.dispatch({type: 'FETCH_NOTES'})
+//store.dispatch({type: 'FETCH_PLACES'})
 
 /*
 //PLACE

@@ -1,15 +1,86 @@
 import update from 'immutability-helper';
-import fetch from 'isomorphic-fetch';
 import visibilityFilter from './visibilityFilter.js';
 
+import * as ActionTypes from '../actions/places.js';
+import merge from 'lodash/merge'
+import paginate from './paginate'
+import { combineReducers } from 'redux'
+
+// Updates an entity cache in response to any action with response.entities.
+const entities = (state = { users: {}, places: {} }, action) => {
+  if (action.response && action.response.entities) {
+    return merge({}, state, action.response.entities)
+  }
+
+  return state
+}
+
+const errorMessage = (state = null, action) => {
+  const { type, error } = action
+  
+  if (type === ActionTypes.RESET_ERROR_MESSAGE) {
+    return null
+  } else if (error) {
+    return error
+  }
+  
+  return state;
+}
+
+const pagination = combineReducers({
+  places: paginate({
+    mapActionToKey: action => action.type,
+    types: [
+      ActionTypes.PLACES_REQUEST,
+      ActionTypes.PLACES_SUCCESS,
+      ActionTypes.PLACES_FAILURE
+    ]
+  }),
+})
+//PAGINATION EXAMPLE
+//  stargazersByRepo: paginate({
+//    mapActionToKey: action => action.fullName,
+//    types: [
+//      ActionTypes.STARGAZERS_REQUEST,
+//      ActionTypes.STARGAZERS_SUCCESS,
+//      ActionTypes.STARGAZERS_FAILURE
+//    ]
+//  })
+
+const rootReducer = combineReducers({
+  entities,
+  pagination,
+  errorMessage,
+})
+
+//ignoring below for now
 const places = (state={
   byId: {},
   allPlaces: [],
   visibilityFilter
 }, action) => {
   switch(action.type) {
-    case 'FETCH_PLACE': {
-      return [...state];
+    case 'REQUEST_PLACES':
+      return {
+        ...state,
+        isFetching: true,
+        didInvalidate: false,
+        location: action.location
+      }
+    case 'RECEIVE_PLACES': {
+      return update(state, {
+//        byId: {
+//          [action.id]: {
+//            $set: {
+//              id: action.id,
+//              placeName: action.placeName,
+//              address: action.address,
+//              likes: action.likes,
+//              stars: action.stars,
+//              photo: action.photo,
+//              categories: action.categories}}},
+        allPlaces: {$push: [action.places[0].restaurant.id]},
+      });
     }
     case 'NEW_PLACE': {
       return update(state, {
@@ -58,47 +129,5 @@ const places = (state={
     default: return state; 
   }
 };
-
-//checkout: code from redux complex state example. then, normalizr and entities... make sure state shape is appropriate, fetch while incorporating the below code:
-
-//    this.pullRestaurants = function () {
-//        
-//        if ("geolocation" in navigator) {
-//
-//            navigator.geolocation.getCurrentPosition(function(position) {
-//                var lat = position.coords.latitude;
-//                var lon = position.coords.longitude;
-//            
-//                getFoodz(lat, lon);
-//            })
-//        } else {
-//          console.log('no geolocation');
-//        }
-//    }
-//    var getFoodz = function(lat, lon) {
-//        
-//        if(lat && lon) {    
-//            return $http.get(('https://developers.zomato.com/api/v2.1/search?' + 'lat=' + lat +'&lon=' + lon), {
-//                headers: {"X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"}
-//            }).then(function(response){
-//                var data = response.data.restaurants;
-//   
-//                data.forEach(function(item) {
-//                    var path = item.restaurant.location.address;
-//
-//                    var Restaurant = {
-//                        name: item.restaurant.name,
-//                        address: path,
-//                        slimAddress: path.substring(0, path.length - 10) + "...",
-//                        rating: Math.floor(item.restaurant.user_rating.aggregate_rating),
-//                        id: item.restaurant.id,
-//                        cuisine_type: item.restaurant.cuisines,
-//                        menu_url: item.restaurant.menu_url
-//                    }
-//                    nearArray.push(Restaurant);
-//                })
-//            })   
-//        }
-//    }
-
-export default places;
+export default rootReducer;
+//export default places;
