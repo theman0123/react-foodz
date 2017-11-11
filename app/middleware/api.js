@@ -1,13 +1,15 @@
 import { normalize, schema } from 'normalizr'
 import { camelizeKeys } from 'humps'
 
-// Extracts the next page URL from Github API response.
-//const getNewStart = (response, location) => {
-//  const newStart = response.results_start + 20;
-//  const nextURL = API_ROOT + `search?lat=${location.lat}&lon=${location.lon}&start${start}`;
-//  
-//  return !newStart ? null : nextUrl;
-//}
+// Extracts the next start position for Zomato API.
+const getNewStart = (response, start) => {
+  const urlSplit = response.url.split('start=');
+  const newStart = start + 20;
+  
+  const nextUrl = `${urlSplit[0]}start=${newStart}`;
+  
+  return !newStart ? null : nextUrl;
+}
 
 const API_ROOT = 'https://developers.zomato.com/api/v2.1/';
 
@@ -17,11 +19,12 @@ const API_ROOT = 'https://developers.zomato.com/api/v2.1/';
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 const callApi = (endpoint, schema, start = 0) => {
-  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint + `&start=${start}`;
   
   const headers = {
     "X-Zomato-API-Key": '451e00ec0a1c87145925d326a5319666'
   }
+  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint + `&start=${start}`;
+  
   
   return fetch(fullUrl, {headers: headers})
     .then(response =>
@@ -30,12 +33,12 @@ const callApi = (endpoint, schema, start = 0) => {
           return Promise.reject(json)
         }
 
-        const camelizedJson = camelizeKeys(json)
-        const nextUrl = fullUrl//start += 20;
+        const camelizedJson = camelizeKeys(json.restaurants)
+        const nextPageUrl = getNewStart(response, start)
 
         return Object.assign({},
           normalize(camelizedJson, schema),
-          { nextUrl }
+          { nextPageUrl }
         )
       })
     )
@@ -49,13 +52,9 @@ const callApi = (endpoint, schema, start = 0) => {
 
 // Read more about Normalizr: https://github.com/paularmstrong/normalizr
 
-// GitHub's API may return results with uppercase letters while the query
-// doesn't contain any. For example, "someuser" could result in "SomeUser"
-// leading to a frozen UI as it wouldn't find "someuser" in the entities.
-// That's why we're forcing lower cases down there.
 
 const placesSchema = new schema.Entity('places', {}, {
-  idAttribute: places => places.restaurants.id  
+  idAttribute: places => places.restaurant.id
 })
 
 const userSchema = new schema.Entity('users', {}, {
@@ -71,6 +70,7 @@ const repoSchema = new schema.Entity('repos', {
 // Schemas for Github API responses.
 export const Schemas = {
   PLACES: placesSchema,
+  PLACES: [placesSchema],
   USER: userSchema,
   USER_ARRAY: [userSchema],
   REPO: repoSchema,

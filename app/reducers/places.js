@@ -29,7 +29,7 @@ const errorMessage = (state = null, action) => {
 
 const pagination = combineReducers({
   places: paginate({
-    mapActionToKey: action => action.login,
+    mapActionToKey: action => action.type,
     types: [
       ActionTypes.PLACES_REQUEST,
       ActionTypes.PLACES_SUCCESS,
@@ -49,7 +49,7 @@ const pagination = combineReducers({
 
 const rootReducer = combineReducers({
   entities,
-//  pagination,
+  pagination,
   errorMessage,
 })
 
