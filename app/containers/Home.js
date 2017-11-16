@@ -16,6 +16,10 @@ import type from 'bootstrap-css-modules/css/type.css';
 const newRestText = `${text.textCenter} ${position.fixedBottom} ${myStyles.point}`;
 const exploreS = `${text.textCenter} ${text.fontItalic} ${type.h4}`;
 
+const loadData = ({shouldFetchPlaces}) => {
+  shouldFetchPlaces();
+}
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -30,11 +34,12 @@ class Home extends Component {
       showForm: false,
     };
   };
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(shouldFetchPlaces())
-  }
   
+  
+  componentWillMount() {
+    loadData(this.props)
+  }
+
   close() {
     this.setState({ showForm: false });
   }
@@ -42,8 +47,27 @@ class Home extends Component {
   open() {
     this.setState({ showForm: true });
   }
+  
 
   render() {
+    const places = () => {  
+      const {entities, ids} = this.props
+      const placeObj = entities.places;
+      const idsArray = ids.ids;
+
+      return idsArray.map( id => {
+//        console.log(placeObj[id])
+        return ( 
+          <PlaceCards
+            address={placeObj[id].restaurant.location.address}
+            name={placeObj[id].restaurant.name}
+            stars={placeObj[id].restaurant.userRating.aggregateRating}
+          />
+        )
+      })
+    }
+    const run = console.log(places())
+//    places()
     return (
       <div>
         <div><Filter /></div>
@@ -51,23 +75,12 @@ class Home extends Component {
         <div className={exploreS}>
           Explore
         </div>
-
-        <VisiblePlaces
-          address={this.state.place.address}
-          name={this.state.place.name}
-          stars={this.state.place.stars}
-        />
-
-        <PlaceCards
-          address={this.state.place.address}
-          name={this.state.place.name}
-          stars={this.state.place.stars}
-        />
-
+      
+        {places()}
+      
         <div onClick={this.open.bind(this)} className={newRestText}>
           New Restaurant
         </div>
-
         <PlacesForm
           showForm={this.state.showForm}
           close={this.close.bind(this)}
@@ -77,5 +90,26 @@ class Home extends Component {
     );
   }
 };
+//        <PlaceCards
+//          address={this.state.place.name}
+//          name={this.state.place.name}
+//          stars={this.state.place.stars}
+//        />
 
-export default connect()(Home);
+const mapStateToProps = state => {
+  const {
+    pagination: { places },
+    entities
+  } = state;
+
+  const ids = places.PLACES_SUCCESS;
+
+  return {
+    entities,
+    ids
+  };
+};
+
+export default connect(mapStateToProps, {
+  shouldFetchPlaces,
+})(Home);

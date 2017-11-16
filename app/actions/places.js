@@ -27,7 +27,7 @@ const fetchPlaces = location => ({
   [CALL_API]: {
     types: [ PLACES_REQUEST, PLACES_SUCCESS, PLACES_FAILURE ],
     endpoint: `https://developers.zomato.com/api/v2.1/search?lat=${location.lat}&lon=${location.lon}`,
-    schema: Schemas.PLACES
+    schema: Schemas.PLACES_ARRAY
   }
 });
 
