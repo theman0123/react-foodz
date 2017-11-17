@@ -13,5 +13,10 @@ export const todoTracker = {
     todo: 'on fetching status display a loading sign',
     completed: false,
     notes: ''
+  },
+  4: {
+    todo: 'cleanup files. no extra, empty, nonused files',
+    completed: false,
+    notes: 'time yourself should take less than 30minutes'
   }
 };

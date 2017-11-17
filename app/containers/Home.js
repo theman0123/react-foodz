@@ -19,7 +19,7 @@ const exploreS = `${text.textCenter} ${text.fontItalic} ${type.h4}`;
 
 const loadData = ({shouldFetchPlaces}) => {
   shouldFetchPlaces();
-}
+};
 
 class Home extends Component {
   constructor(props) {
@@ -34,12 +34,11 @@ class Home extends Component {
       },
       showForm: false,
     };
-    this.getNotesFor = this.getNotesFor.bind(this);
+//    this.getNotesFor = this.getNotesFor.bind(this);
   };
-  
-  
+
   componentWillMount() {
-    loadData(this.props)
+    loadData(this.props);
   }
 
   close() {
@@ -49,7 +48,7 @@ class Home extends Component {
   open() {
     this.setState({ showForm: true });
   }
-  
+
 //  getNotesFor(id) {
 //    console.log(id, 'hey');
 //  }
@@ -101,11 +100,6 @@ class Home extends Component {
     );
   }
 };
-//        <PlaceCards
-//          address={this.state.place.name}
-//          name={this.state.place.name}
-//          stars={this.state.place.stars}
-//        />
 
 const mapStateToProps = state => {
   const {
