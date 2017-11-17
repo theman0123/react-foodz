@@ -62,10 +62,8 @@ const userSchema = new schema.Entity('users', {}, {
   idAttribute: user => user.login.toLowerCase()
 });
 
-const repoSchema = new schema.Entity('repos', {
-  owner: userSchema
-}, {
-  idAttribute: repo => repo.fullName.toLowerCase()
+const noteSchema = new schema.Entity('notes', {}, {
+  idAttribute: notes => notes.id
 });
 
 // Schemas for Github API responses.
@@ -74,8 +72,8 @@ export const Schemas = {
   PLACES_ARRAY: [placesSchema],
   USER: userSchema,
   USER_ARRAY: [userSchema],
-  REPO: repoSchema,
-  REPO_ARRAY: [repoSchema]
+  NOTES: noteSchema,
+  NOTES_ARRAY: [noteSchema]
 }
 
 // Action key that carries API call info interpreted by this Redux middleware.

@@ -7,7 +7,7 @@ import paginate from './paginate'
 import { combineReducers } from 'redux'
 
 // Updates an entity cache in response to any action with response.entities.
-const entities = (state = { users: {}, places: {} }, action) => {
+const entities = (state = { users: {}, places: {}, notes: {} }, action) => {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
@@ -34,6 +34,14 @@ const pagination = combineReducers({
       ActionTypes.PLACES_REQUEST,
       ActionTypes.PLACES_SUCCESS,
       ActionTypes.PLACES_FAILURE
+    ]
+  }),
+  notes: paginate({
+    mapActionToKey: action => action.type,
+    types: [
+      ActionTypes.NOTES_REQUEST,
+      ActionTypes.NOTES_SUCCESS,
+      ActionTypes.NOTES_FAILURE
     ]
   }),
 })

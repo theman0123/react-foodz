@@ -1,7 +1,7 @@
 export const taskTracker = {
   1: {
     title: 'zomato api to entities.places',
-    start: 0948,
+    start: 948,
     stop: 1200,
     notes: 'the main key to solving the problem was how noramlizr\'s \'new Schema\' command works and the shape of the response object being manipulated.'
   },
@@ -29,10 +29,16 @@ export const taskTracker = {
     stop: 132,
     notes: 'how do you pass down data?'
   },
-  5: {
+  6: {
     title: 'setup id\'s from places, in order to use the array of id\'s as keys for distributing object values onto component',
     start: 133,
-    stop: '',
-    notes: ''
+    stop: 300,
+    notes: 'using the array of ids, use each as a key for each places object on entities.'
+  },
+  7: {
+    title: 'on placeCard click, grab id, change view to noteView.',
+    start: 1100,
+    stop: 1231,
+    notes: 'can\'t get onClick() to fire... next time start basic. getNotesFor(id) is a dispatched function for an API_CALL. Is it getting mapped to each placeCard? Get it working.'
   },
 };

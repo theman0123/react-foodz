@@ -6,6 +6,7 @@ import PlacesForm from '../components/places/PlacesForm.js';
 import PlaceCards from '../components/places/PlaceCards.js';
 import VisiblePlaces from './getVisiblePlaces.js'; 
 import { shouldFetchPlaces } from '../actions/places.js';
+import { getNotesFor } from '../actions/places.js';
 
 import myStyles from '../myStyles.css';
 
@@ -33,6 +34,7 @@ class Home extends Component {
       },
       showForm: false,
     };
+    this.getNotesFor = this.getNotesFor.bind(this);
   };
   
   
@@ -48,26 +50,35 @@ class Home extends Component {
     this.setState({ showForm: true });
   }
   
+//  getNotesFor(id) {
+//    console.log(id, 'hey');
+//  }
 
+//  handleClick() {
+//    e.preventDefault;
+//    console.log(this);
+//  }
+
+//            onClick={this.getNotesFor.bind(this, id)}
   render() {
-    const places = () => {  
+    const places = () => {
       const {entities, ids} = this.props
       const placeObj = entities.places;
       const idsArray = ids.ids;
 
       return idsArray.map( id => {
-//        console.log(placeObj[id])
-        return ( 
+        return (
           <PlaceCards
+            key={id}
             address={placeObj[id].restaurant.location.address}
             name={placeObj[id].restaurant.name}
             stars={placeObj[id].restaurant.userRating.aggregateRating}
+            onClick={ (e) => this.getNotesFor(id, e)}
           />
-        )
-      })
-    }
-    const run = console.log(places())
-//    places()
+        );
+      });
+    };
+
     return (
       <div>
         <div><Filter /></div>
@@ -75,9 +86,9 @@ class Home extends Component {
         <div className={exploreS}>
           Explore
         </div>
-      
+
         {places()}
-      
+
         <div onClick={this.open.bind(this)} className={newRestText}>
           New Restaurant
         </div>
@@ -110,6 +121,15 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onClick: id => {
+      dispatch(getNotesFor(id));
+    }
+  };
+};
+
 export default connect(mapStateToProps, {
   shouldFetchPlaces,
+  mapDispatchToProps
 })(Home);

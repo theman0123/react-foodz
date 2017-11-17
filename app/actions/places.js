@@ -17,7 +17,6 @@ export const setVisibilityFilter = (filter) => ({
 export const PLACES_REQUEST = 'PLACES_REQUEST';
 export const PLACES_SUCCESS = 'PLACES_SUCCESS';
 export const PLACES_FAILURE = 'PLACES_FAILURE';
-export const RECEIVE_PLACES = 'RECEIVE_PLACES';
 
 // Relies on the custom API middleware defined in ../middleware/api.js.
 
@@ -46,35 +45,48 @@ export const shouldFetchPlaces = () => (dispatch, getState) => {
   else console.log('no geolocation');
 }
 
-export function newPlace(id, placeName, address, likes, stars, photo, categories) {
-  return {
-    type: NEW_PLACE,
-    id,
-    placeName,
-    address,
-    likes,
-    stars,
-    photo,
-    categories,
-  };
-};
+//Notes
+export const NOTES_REQUEST = 'NOTES_REQUEST';
+export const NOTES_SUCCESS = 'NOTES_SUCCESS';
+export const NOTES_FAILURE = 'NOTES_FAILURE';
 
-export function editPlace(id, placeName, address, likes, stars, photo, categories) {
-  return {
-    type: EDIT_PLACE,
-    id,
-    placeName,
-    address,
-    likes,
-    stars,
-    photo,
-    categories,
-  };
-};
+export const getNotesFor = id => ({
+  [CALL_API]: {
+    types: [ NOTES_REQUEST, NOTES_SUCCESS, NOTES_FAILURE ],
+    endpoint: `todo: QUERY DB ?id=${id}`,
+    schema: Schemas.NOTES_ARRAY
+  }
+});
 
-export function deletePlace(id) {
-  return { type: DELETE_PLACE, id};
-};
+//export function newPlace(id, placeName, address, likes, stars, photo, categories) {
+//  return {
+//    type: NEW_PLACE,
+//    id,
+//    placeName,
+//    address,
+//    likes,
+//    stars,
+//    photo,
+//    categories,
+//  };
+//};
+//
+//export function editPlace(id, placeName, address, likes, stars, photo, categories) {
+//  return {
+//    type: EDIT_PLACE,
+//    id,
+//    placeName,
+//    address,
+//    likes,
+//    stars,
+//    photo,
+//    categories,
+//  };
+//};
+//
+//export function deletePlace(id) {
+//  return { type: DELETE_PLACE, id};
+//};
 
 export function visibilityFilter(filter) {
   return { type: VISIBILITY_FILTER, filter };
