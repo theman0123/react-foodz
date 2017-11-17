@@ -1,4 +1,4 @@
-import { normalize, schema } from 'normalizr'
+import { normalize, schema, arrayOf } from 'normalizr'
 import { camelizeKeys } from 'humps'
 
 // Extracts the next start position for Zomato API.
@@ -13,9 +13,6 @@ const getNewStart = (response, start) => {
 
 const API_ROOT = 'https://developers.zomato.com/api/v2.1/';
 
-//const header = {
-//  "X-Zomato-API-Key": "451e00ec0a1c87145925d326a5319666"
-//};
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 const callApi = (endpoint, schema, start = 0) => {
@@ -52,29 +49,31 @@ const callApi = (endpoint, schema, start = 0) => {
 
 // Read more about Normalizr: https://github.com/paularmstrong/normalizr
 
+//const place = new schema.
 
 const placesSchema = new schema.Entity('places', {}, {
   idAttribute: places => places.restaurant.id
-})
+});
+//placesSchema.define({
+//  places: arrayOf(placesSchema)
+//});
 
 const userSchema = new schema.Entity('users', {}, {
   idAttribute: user => user.login.toLowerCase()
-})
+});
 
-const repoSchema = new schema.Entity('repos', {
-  owner: userSchema
-}, {
-  idAttribute: repo => repo.fullName.toLowerCase()
-})
+const noteSchema = new schema.Entity('notes', {}, {
+  idAttribute: notes => notes.id
+});
 
 // Schemas for Github API responses.
 export const Schemas = {
-  PLACES: placesSchema,
-  PLACES: [placesSchema],
+//  PLACES: placesSchema,
+  PLACES_ARRAY: [placesSchema],
   USER: userSchema,
   USER_ARRAY: [userSchema],
-  REPO: repoSchema,
-  REPO_ARRAY: [repoSchema]
+  NOTES: noteSchema,
+  NOTES_ARRAY: [noteSchema]
 }
 
 // Action key that carries API call info interpreted by this Redux middleware.
